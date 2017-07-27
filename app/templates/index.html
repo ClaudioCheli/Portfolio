@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer
+            mdl-layout--fixed-header">
+    <header class="mdl-layout__header">
+
+        <div aria-expanded="false" role="button" tabindex="0" class="mdl-layout__drawer-button">
+            <i class="material-icons">menu</i>
+        </div>
+
+        <div class="mdl-layout__header-row">
+            <div class="mdl-layout-spacer"></div>
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable
+                  mdl-textfield--floating-label mdl-textfield--align-right">
+                <label class="mdl-button mdl-js-button mdl-button--icon"
+                       for="fixed-header-drawer-exp">
+                    <i class="material-icons">search</i>
+                </label>
+                <div class="mdl-textfield__expandable-holder">
+                    <input class="mdl-textfield__input" type="text" name="sample"
+                           id="fixed-header-drawer-exp">
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="mdl-layout__drawer">
+        <span class="mdl-layout-title">Cheli Claudio</span>
+        <nav class="mdl-navigation">
+            <a class="mdl-navigation__link" href="#project">Project</a>
+            <a class="mdl-navigation__link" href="#about">About</a>
+            <a class="mdl-navigation__link" href="#footer">Contact</a>
+        </nav>
+    </div>
+    <main class="mdl-layout__content">
+        <div id="project" class="page-content mdl-grid section--center" style="text-align:center; justify-content:space-around">
+            {% for project in projects %}
+                {% include 'projectCard.html' %}
+            {% endfor %}
+
+            {% include 'about.html' %}
+
+        </div>
+        {% include 'footer.html' %}
+    </main>
+</div>
+
+
+{% endblock %}

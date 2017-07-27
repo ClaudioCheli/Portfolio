@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    .mdl-card {
+        margin-bottom: 48px;
+        width: auto;
+    }
+
+    #inputImages {
+        opacity: 0;
+        position: absolute;
+        z-index: -1;
+    }
+
+</style>
+
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header
+            mdl-layout--fixed-tabs">
+    <header class="mdl-layout__header">
+        <div class="mdl-layout__header-row">
+            <!-- Title -->
+            <span class="mdl-layout-title">{{ title }}</span>
+        </div>
+        <!-- Tabs -->
+        <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
+            <a href="#fixed-tab-1" class="mdl-layout__tab is-active">New Project</a>
+            <a href="#fixed-tab-2" class="mdl-layout__tab">Modify Project</a>
+            <a href="#fixed-tab-3" class="mdl-layout__tab">Delete Project</a>
+        </div>
+    </header>
+
+    <main class="mdl-layout__content">
+        <div class="mdl-layout__tab-panel is-active" id="fixed-tab-1">
+            <section class="mdl-grid section--center">
+                <form action="" class="mdl-cell mdl-cell--12-col" method="POST" name="addProject"
+                      enctype="multipart/form-data">
+                    {{ form.hidden_tag() }}
+                    <div class="mdl-card mdl-grid mdl-shadow--2dp">
+                        <div class="mdl-card__supporting-text">
+                            <h2>Project Title</h2>
+                            {% for error in form.title.errors %}
+                            <span style="color:red;">[{{ error }}]</span>
+                            {% endfor %}
+                            {% for error in form.shortDescription.errors %}
+                            <span style="color:red;">[{{ error }}]</span>
+                            {% endfor %}
+                            {% for error in form.description.errors %}
+                            <span style="color:red;">[{{ error }}]</span>
+                            {% endfor %}
+                            <div class="mdl-textfield mdl-js-textfield">
+                                {{ form.title.label(class="mdl-textfield__label") }}
+                                {{ form.title(class="mdl-textfield__input")}}
+                                <!--<input class="mdl-textfield__input" type="text" id="title">
+                                <label class="mdl-textfield__label" for="title">Title</label>-->
+                            </div>
+                        </div>
+                    </div><!-- End Project title -->
+
+
+
+                    <div class="mdl-card mdl-grid mdl-shadow--2dp">
+                        <div class="mdl-card__supporting-text">
+                            <h2>Short Description</h2>
+                            <div class="mdl-textfield mdl-js-textfield mdl-cell--12-col">
+                                {{ form.shortDescription.label(class="mdl-textfield__label") }}
+                                {{ form.shortDescription(class="mdl-textfield__input", rows="5") }}
+                                <!--<textarea class="mdl-textfield__input" type="text" rows="5"
+                                          id="shortDescription"></textarea>
+                                <label class="mdl-textfield__label" for="shortDescription">Short Description</label>-->
+                            </div>
+                        </div>
+                    </div><!-- End Short description -->
+
+                    <div class="mdl-card mdl-grid mdl-shadow--2dp">
+                        <div class="mdl-card__supporting-text">
+                            <h2>Description</h2>
+                            <div class="mdl-textfield mdl-js-textfield mdl-cell--12-col">
+                                {{ form.description.label(class="mdl-textfield__label") }}
+                                {{ form.description(class="mdl-textfield__input", rows="10") }}
+                                <!--<textarea class="mdl-textfield__input" type="text" rows="10"
+                                          id="description"></textarea>
+                                <label class="mdl-textfield__label" for="description">Description</label>-->
+                            </div>
+                        </div>
+                    </div><!-- End Description -->
+
+                    <div class="mdl-card mdl-grid mdl-shadow--2dp">
+                        <h2 class="mdl-cell mdl-cell--12-col">Images</h2>
+
+                        <output id="imageList" class="mdl-cell mdl-cell--12-col" style="display:flex; flex-wrap: wrap;"></output>
+
+                        <label class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" for="inputImages">
+                            <i class="material-icons">add</i>
+                        </label>
+                        <input type="file" name="images" id="inputImages" multiple>
+                        <script src="static/js/inputImages.js"></script>
+
+                    </div><!-- End Images -->
+
+                    <input class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" type="submit" value="Upload" id="btnUpload">
+
+                </form>
+            </section>
+        </div>
+        <div class="mdl-layout__tab-panel" id="fixed-tab-2">
+            <div class="page-content">
+                <h1>Modify Project</h1>
+                {% for project in projects %}
+                {% include 'projectCard.html' %}
+                {% endfor %}
+            </div>
+        </div>
+        <div class="mdl-layout__tab-panel" id="fixed-tab-3">
+            <div class="page-content">
+                <h1>Delete Project</h1>
+            </div>
+        </div>
+    </main>
+</div>
+{% endblock %}

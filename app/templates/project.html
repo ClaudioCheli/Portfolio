@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.blue-indigo.min.css"/>
+    <link rel="stylesheet" href="../static/css/material.components.ext.min.css">
+    <script src="../static/js/material.components.ext.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="../static/js/imageGallery.js"></script>
+
+    <title>{{ project.title }}</title>
+
+    <style>
+        .dot{
+            display:inline-block;
+            width: 15px;
+            height: 15px;
+            margin:5px;
+            background-color:transparent;
+            border: 1px solid;
+            border-color:#FFFFFF;
+            border-radius:50%;
+        }
+
+        @media screen and (max-width: 480px){
+            .dot {
+                width: 10px;
+                height:10px;
+            }
+        }
+
+        .leftArrow, .rightArrow {
+            position:absolute;
+            display:block;
+            padding:2px;
+            top:50%;
+            transform: translate(0%, -50%);
+            background-color:rgba(0,0,0,0.5);
+            color:#FFFFFF;
+            font-size:36px;
+        }
+
+        .leftArrow {
+            left:0;
+        }
+
+        .rightArrow {
+            right:0;
+        }
+
+        .dot, .leftArrow, .rightArrow {
+            cursor:pointer;
+        }
+
+        .dotContainer {
+            position:absolute;
+            display:block;
+            left:50%;
+            padding:2px;
+            transform: translate(-50%, 0%);
+            bottom:5%;
+            background-color:rgba(0,0,0,0.5);
+        }
+
+        .slide {
+            display:none;
+            width:100%;
+        }
+
+        .white {
+            background-color:#FFFFFF;
+        }
+
+    </style>
+
+</head>
+<body>
+<div class="mdl-grid" style="max-width:100%;">
+    <div class="mdl-layout-spacer"></div>
+    <div class="mdl-card mdl-cell mdl-cell--12-col"
+         style="max-width:1280px; max-height:720px; width:auto; height:auto;">
+        {% for image in images %}
+        <img src="{{ image }}" class="slide" id="image{{loop.index}}" style="max-width:100%;">
+        {% endfor %}
+        <div class="mdl-card__actions">
+            <div class="leftArrow" onclick="plusSlide(-1)"><i class="material-icons">chevron_left</i></div>
+            <div class="dotContainer">
+                {% for image in images %}
+                <span class="dot" onclick="currentSlide({{loop.index}})"></span>
+                {% endfor %}
+            </div>
+            <div class="rightArrow" onclick="plusSlide(1)"><i class="material-icons">chevron_right</i></div>
+        </div>
+    </div>
+    <div class="mdl-layout-spacer"></div>
+    <div class="" style="padding:5px; max-width:100%;">
+        <h2>{{ project.title }}</h2>
+        {{ description }}
+    </div>
+    {% include 'footer.html' %}
+</div>
+</body>
+</html>
